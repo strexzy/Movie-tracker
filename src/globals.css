@@ -1,0 +1,33 @@
+/* Import fonts */
+
+/* Import tailwind */
+
+@import "tailwindcss";
+
+/* CSS Globals */
+
+html {
+  background-color: #ebeaea;
+}
+
+/* Tailwind vars */
+
+@theme {
+  /* --text-superred-color: #123142; */
+}
+
+/* Tailwind globals */
+
+@layer base {
+  h1 {
+    /* ... css styles */
+  }
+}
+
+/* Tailwind components */
+
+@layer components {
+  .card {
+    /* ... @apply tailwind styles */
+  }
+}
