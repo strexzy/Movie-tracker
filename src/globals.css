@@ -1,4 +1,6 @@
-/* Import fonts */
+/* Import Roboto font */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 /* Import tailwind */
 
@@ -13,12 +15,19 @@ html {
 /* Tailwind vars */
 
 @theme {
-  /* --text-superred-color: #123142; */
+  --font-roboto: "Roboto", sans-serif;
+  --color-input-gray: #d9d9d9;
+  --color-button-blue: #37c6f3;
+  --color-transparent-gray: #6d6d6d;
 }
 
 /* Tailwind globals */
 
 @layer base {
+  * {
+    @apply font-roboto;
+  }
+
   h1 {
     /* ... css styles */
   }

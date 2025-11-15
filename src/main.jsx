@@ -15,6 +15,7 @@ import MoviesLayout from "./pages/_movies/MoviesLayout.jsx";
 import MovieList from "./pages/_movies/MovieList.jsx";
 import Movie from "./pages/_movies/Movie.jsx";
 import Watching from "./pages/_movies/Watching.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
     Component: MoviesLayout,
     children: [
       { index: true, Component: MovieList },
-      { path: "movie/:movieName", Component: MovieList },
+      { path: "movie/:movieName", Component: Movie },
       { path: "watching", Component: Watching },
     ],
   },
@@ -51,8 +52,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router}>
+        <App />
+      </RouterProvider>
+    </AuthProvider>
   </StrictMode>,
 );
