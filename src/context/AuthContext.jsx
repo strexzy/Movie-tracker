@@ -12,7 +12,6 @@ export const AuthProvider = ({ children }) => {
     const url = "http://localhost:4000/api/login";
     try {
       const response = await axios.post(url, { username, password });
-      console.log(response.data);
       setUser(response.data.user);
       setIsAuth(true);
     } catch (error) {
@@ -38,9 +37,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logoutUser = () => {
+    setIsAuth(false);
+    setUser({});
+  };
+
   return (
     <AuthContext.Provider
-      value={{ isAuth, user, authorizeUser, registerUser, errorMessage }}
+      value={{
+        isAuth,
+        user,
+        authorizeUser,
+        registerUser,
+        logoutUser,
+        errorMessage,
+      }}
     >
       {children}
     </AuthContext.Provider>

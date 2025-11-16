@@ -26,7 +26,7 @@ const Header = () => {
           Movies
         </NavLink>
         <NavLink
-          to="/watching"
+          to="/movies/watching"
           className={({ isActive }) =>
             isActive ? " font-medium text-xl text-black" : " text-gray-500"
           }

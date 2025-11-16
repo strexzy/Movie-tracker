@@ -2,19 +2,18 @@ import { Input } from "../../components/ui/Input.jsx";
 import { AuthButton } from "../../components/ui/AuthButton.jsx";
 import { ErrorMsg } from "../../components/ui/ErrorMsg.jsx";
 import { useForm } from "react-hook-form";
-import { useContext, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { useContext } from "react";
+import { NavLink } from "react-router";
 import AuthContext from "../../context/AuthContext.jsx";
 
 const SignUp = () => {
-  const { isAuth, registerUser, errorMessage } = useContext(AuthContext);
+  const { registerUser, errorMessage } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors, isSubmitting, isValid },
   } = useForm({ mode: "onChange" });
-  const navigate = useNavigate();
 
   const passwordValue = watch("password");
 
@@ -26,12 +25,6 @@ const SignUp = () => {
       data.confirmPassword,
     );
   };
-
-  useEffect(() => {
-    if (isAuth) {
-      navigate("/");
-    }
-  }, [isAuth]);
 
   return (
     <div className="w-1/2 flex flex-col justify-center items-center">

@@ -2,28 +2,21 @@ import { Input } from "../../components/ui/Input.jsx";
 import { AuthButton } from "../../components/ui/AuthButton.jsx";
 import { ErrorMsg } from "../../components/ui/ErrorMsg.jsx";
 import { useForm } from "react-hook-form";
-import { useContext, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { useContext } from "react";
+import { NavLink } from "react-router";
 import AuthContext from "../../context/AuthContext.jsx";
 
 const SignIn = () => {
-  const { isAuth, authorizeUser, errorMessage } = useContext(AuthContext);
+  const { authorizeUser, errorMessage } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
   } = useForm({ mode: "onChange" });
-  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     await authorizeUser(data.username, data.password);
   };
-
-  useEffect(() => {
-    if (isAuth) {
-      navigate("/");
-    }
-  }, [isAuth]);
 
   return (
     <div className="w-1/2 flex flex-col justify-center items-center">
