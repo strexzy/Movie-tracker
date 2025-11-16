@@ -1,17 +1,23 @@
 import axios from "axios";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    username: sessionStorage.getItem("username") || "",
+  });
   const [errorMessage, setErrorMessage] = useState("");
 
   const authorizeUser = async (username, password) => {
     const url = "http://localhost:4000/api/login";
     try {
       const response = await axios.post(url, { username, password });
+      sessionStorage.setItem("token", response.data.token);
+      sessionStorage.setItem("username", response.data.user.username);
+      console.log(sessionStorage.getItem("response"));
       setUser(response.data.user);
       setIsAuth(true);
     } catch (error) {
@@ -29,6 +35,8 @@ export const AuthProvider = ({ children }) => {
         password,
         confirmPassword,
       });
+      sessionStorage.setItem("token", response.data.token);
+      sessionStorage.setItem("username", response.data.user.username);
       setUser(response.data);
       setIsAuth(true);
     } catch (error) {
@@ -40,7 +48,27 @@ export const AuthProvider = ({ children }) => {
   const logoutUser = () => {
     setIsAuth(false);
     setUser({});
+    sessionStorage.removeItem("token");
   };
+
+  const isTokenExpired = (token) => {
+    if (!token) return true;
+
+    try {
+      const { exp } = jwtDecode(token);
+      if (!exp) return true;
+
+      const now = Date.now() / 1000;
+      return exp < now;
+    } catch (e) {
+      return true;
+    }
+  };
+
+  useEffect(() => {
+    const tokenStatus = isTokenExpired(sessionStorage.getItem("token"));
+    setIsAuth(!tokenStatus);
+  }, []);
 
   return (
     <AuthContext.Provider
