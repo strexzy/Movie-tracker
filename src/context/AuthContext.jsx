@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({
     username: sessionStorage.getItem("username") || "",
   });
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorAuthMessage, setErrorAuthMessage] = useState("");
 
   const authorizeUser = async (username, password) => {
     const url = "http://localhost:4000/api/login";
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuth(true);
     } catch (error) {
       const errorResponse = await error.response.data;
-      setErrorMessage(errorResponse.message);
+      setErrorAuthMessage(errorResponse.message);
     }
   };
 
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuth(true);
     } catch (error) {
       const errorResponse = await error.response.data;
-      setErrorMessage(errorResponse.message);
+      setErrorAuthMessage(errorResponse.message);
     }
   };
 
@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
         authorizeUser,
         registerUser,
         logoutUser,
-        errorMessage,
+        errorAuthMessage,
       }}
     >
       {children}

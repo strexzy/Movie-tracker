@@ -7,7 +7,7 @@ import { NavLink } from "react-router";
 import AuthContext from "../../context/AuthContext.jsx";
 
 const SignIn = () => {
-  const { authorizeUser, errorMessage } = useContext(AuthContext);
+  const { authorizeUser, errorAuthMessage } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -57,7 +57,7 @@ const SignIn = () => {
             autoComplete="current-password"
           />
           {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
-          {errorMessage && <ErrorMsg>{errorMessage}</ErrorMsg>}
+          {errorAuthMessage && <ErrorMsg>{errorAuthMessage}</ErrorMsg>}
           <AuthButton
             disabled={!isValid || isSubmitting ? true : false}
             className={isValid ? "mt-10" : "mt-10 opacity-50"}

@@ -1,12 +1,8 @@
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext.jsx";
 import Logo from "../assets/logo.svg";
 import { Input } from "./ui/Input.jsx";
-import { NavLink, useLocation } from "react-router";
+import { NavLink } from "react-router";
 
 const Header = () => {
-  const { isAuth } = useContext(AuthContext);
-
   return (
     <header className=" flex justify-between items-center py-10">
       <NavLink to="/">
@@ -18,7 +14,7 @@ const Header = () => {
       />
       <nav className=" flex items-center gap-10">
         <NavLink
-          to="/movies"
+          to="/movies/trending"
           className={({ isActive }) =>
             isActive ? " font-medium text-xl text-black" : " text-gray-500"
           }
