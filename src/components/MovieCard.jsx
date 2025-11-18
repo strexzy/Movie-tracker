@@ -1,6 +1,19 @@
-const MovieCard = ({ poster, name }) => {
+import { useNavigate } from "react-router";
+
+const MovieCard = ({ poster, name, movieId }) => {
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate("/movies/movie/" + id);
+  };
+
   return (
-    <div className="relative w-49 h-71.75 rounded-2xl overflow-hidden shadow-lg">
+    <div
+      onClick={() => {
+        handleClick(movieId);
+      }}
+      className="relative w-49 h-71.75 rounded-2xl overflow-hidden shadow-lg cursor-pointer hover:-translate-y-2 transition duration-200 ease-in"
+    >
       <img
         className="w-full h-full object-cover"
         src={poster}

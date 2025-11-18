@@ -7,7 +7,6 @@ const MovieList = () => {
 
   useEffect(() => {
     getTrending();
-    console.log(trending);
   }, []);
 
   return (
@@ -16,9 +15,14 @@ const MovieList = () => {
         Recently trending movies
       </p>
       {trending.length > 0 ? (
-        <div className="overflow-scroll flex flex-wrap justify-center gap-5 mt-4.25 pb-5">
+        <div className="overflow-scroll flex flex-wrap justify-center gap-5 pt-4.25 pb-5">
           {trending.map((movie) => (
-            <MovieCard key={movie.id} name={movie.name} poster={movie.poster} />
+            <MovieCard
+              key={movie.id}
+              movieId={movie.id}
+              name={movie.name}
+              poster={movie.poster}
+            />
           ))}
         </div>
       ) : (

@@ -6,9 +6,9 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState({
-    username: sessionStorage.getItem("username") || "",
-  });
+  const [user, setUser] = useState(
+    JSON.parse(sessionStorage.getItem("user")) || {},
+  );
   const [errorAuthMessage, setErrorAuthMessage] = useState("");
 
   const authorizeUser = async (username, password) => {
@@ -16,8 +16,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(url, { username, password });
       sessionStorage.setItem("token", response.data.token);
-      sessionStorage.setItem("username", response.data.user.username);
-      console.log(sessionStorage.getItem("response"));
+      sessionStorage.setItem("user", JSON.stringify(response.data.user));
       setUser(response.data.user);
       setIsAuth(true);
     } catch (error) {
@@ -36,8 +35,8 @@ export const AuthProvider = ({ children }) => {
         confirmPassword,
       });
       sessionStorage.setItem("token", response.data.token);
-      sessionStorage.setItem("username", response.data.user.username);
-      setUser(response.data);
+      sessionStorage.setItem("user", JSON.stringify(response.data.user));
+      setUser(response.data.user);
       setIsAuth(true);
     } catch (error) {
       const errorResponse = await error.response.data;
@@ -49,6 +48,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuth(false);
     setUser({});
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
   };
 
   const isTokenExpired = (token) => {
@@ -67,7 +67,11 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const tokenStatus = isTokenExpired(sessionStorage.getItem("token"));
-    setIsAuth(!tokenStatus);
+    if (!tokenStatus && sessionStorage.getItem("user")) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+    }
   }, []);
 
   return (

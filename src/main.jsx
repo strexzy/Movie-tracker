@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     Component: MoviesLayout,
     children: [
       { index: true, path: "trending", Component: MovieList },
-      { path: "movie/:movieName", Component: Movie },
+      { path: "movie/:movieId", Component: Movie },
       { path: "watching", Component: Watching },
     ],
   },
