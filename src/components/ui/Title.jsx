@@ -7,7 +7,7 @@ export const Title = forwardRef(function Title(
   return (
     <h1
       ref={ref}
-      className={"text-center text-3xl font-bold" + " " + className}
+      className={"text-center text-[40px] font-bold" + " " + className}
     >
       {children}
     </h1>

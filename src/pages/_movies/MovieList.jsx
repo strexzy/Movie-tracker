@@ -3,10 +3,11 @@ import MovieContext from "../../context/MovieContext";
 import MovieCard from "../../components/MovieCard";
 
 const MovieList = () => {
-  const { trending, getTrending } = useContext(MovieContext);
+  const { trending, getTrending, getSavedMovies } = useContext(MovieContext);
 
   useEffect(() => {
     getTrending();
+    getSavedMovies();
   }, []);
 
   return (

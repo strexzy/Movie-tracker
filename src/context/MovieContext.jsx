@@ -1,13 +1,17 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import AuthContext from "./AuthContext";
 
 const MovieContext = createContext(null);
 
 export const MovieProvider = ({ children }) => {
   const [trending, setTrending] = useState([]);
   const [search, setSearch] = useState([]);
-  const [movie, setMovie] = useState({});
-  const [errorMovieMessage, setErrorMovieMessage] = useState("");
+  const [movie, setMovie] = useState({ notLoaded: true });
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [errorMovieMessage, setErrorMovieMessage] = useState(null);
+
+  const { isAuth } = useContext(AuthContext);
 
   const getTrending = async () => {
     const url = "http://localhost:4000/api/movies/trending";
@@ -43,16 +47,37 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
-  const saveMovie = async (movieData) => {
+  const saveMovie = async ({ id, title, year, poster }) => {
     const url = "http://localhost:4000/api/movies/save";
     try {
-      const response = await axios.post(url, movieData, {
+      const response = await axios.post(
+        url,
+        { movie_id: id, title, year, poster },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      console.log(response);
+    } catch (error) {
+      const errorResponse = await error.response.data;
+      setErrorMovieMessage(errorResponse.message);
+      console.log(errorResponse);
+    }
+  };
+
+  const getSavedMovies = async () => {
+    const url = "http://localhost:4000/api/mymovies";
+    try {
+      const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
-      console.log(response.data);
+      setSavedMovies(response.data.movies);
     } catch (error) {
       const errorResponse = await error.response.data;
       setErrorMovieMessage(errorResponse.message);
@@ -60,15 +85,25 @@ export const MovieProvider = ({ children }) => {
   };
 
   const deleteSavedMovie = async (movieId) => {
-    const url = "http://localhost:4000/api/movies/saved/" + movieId;
+    const url = "http://localhost:4000/api/movies/" + movieId;
     try {
-      const response = await axios.delete(url);
+      const response = await axios.delete(url, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response);
     } catch (error) {
+      console.log(error);
       const errorResponse = await error.response.data;
       setErrorMovieMessage(errorResponse.message);
     }
   };
+
+  useEffect(() => {
+    getSavedMovies();
+  }, [isAuth]);
 
   return (
     <MovieContext.Provider
@@ -76,10 +111,12 @@ export const MovieProvider = ({ children }) => {
         trending,
         search,
         movie,
+        savedMovies,
         errorMovieMessage,
         getTrending,
         getSearch,
         getMovie,
+        getSavedMovies,
         saveMovie,
         deleteSavedMovie,
       }}

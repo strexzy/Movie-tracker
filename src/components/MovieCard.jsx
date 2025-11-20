@@ -1,9 +1,13 @@
+import MovieContext from "../context/MovieContext";
+import { useContext } from "react";
 import { useNavigate } from "react-router";
 
 const MovieCard = ({ poster, name, movieId }) => {
+  const { getMovie } = useContext(MovieContext);
   const navigate = useNavigate();
 
-  const handleClick = (id) => {
+  const handleClick = async (id) => {
+    await getMovie(id);
     navigate("/movies/movie/" + id);
   };
 
