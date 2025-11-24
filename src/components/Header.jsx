@@ -26,14 +26,6 @@ const Header = () => {
         >
           Watching
         </NavLink>
-        <NavLink
-          to="/preferences"
-          className={({ isActive }) =>
-            isActive ? " font-medium text-xl text-black" : " text-gray-500"
-          }
-        >
-          Preferences
-        </NavLink>
       </nav>
     </header>
   );

@@ -7,7 +7,6 @@ import RootLayout from "./pages/_root/RootLayout.jsx";
 import ErrorFh from "./pages/_error/ErrorFh.jsx";
 import Home from "./pages/_root/Home.jsx";
 import About from "./pages/_root/About.jsx";
-import Preferences from "./pages/_root/Preferences.jsx";
 import AuthLayout from "./pages/_auth/AuthLayout.jsx";
 import SignIn from "./pages/_auth/SignIn.jsx";
 import SignUp from "./pages/_auth/SignUp.jsx";
@@ -29,7 +28,6 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "about", Component: About },
-      { path: "preferences", Component: Preferences },
     ],
   },
   {
