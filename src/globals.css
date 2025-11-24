@@ -26,6 +26,7 @@ html {
   --color-button-blue: #37c6f3;
   --color-transparent-gray: #6d6d6d;
   --color-text-secondary: #636363;
+  --color-black-transparent: rgba(0, 0, 0, 0.5);
 }
 
 /* Tailwind globals */

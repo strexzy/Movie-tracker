@@ -7,11 +7,7 @@ export const Poster = forwardRef(function Poster(
   return (
     <img
       ref={ref}
-      className={
-        "w-49 h-72.75 object-cover rounded-2xl overflow-hidden" +
-        " " +
-        className
-      }
+      className={"object-cover rounded-2xl overflow-hidden" + " " + className}
       {...props}
     />
   );

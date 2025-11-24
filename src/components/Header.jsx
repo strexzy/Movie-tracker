@@ -1,5 +1,5 @@
 import Logo from "../assets/logo.svg";
-import { Input } from "./ui/Input.jsx";
+import SearchBar from "./SearchBar.jsx";
 import { NavLink } from "react-router";
 
 const Header = () => {
@@ -8,10 +8,7 @@ const Header = () => {
       <NavLink to="/">
         <img src={Logo} alt="Movie tracker logo" className=" w-32.5 h-26.5" />
       </NavLink>
-      <Input
-        className=" max-w-157.5"
-        placeholder="🔍 Search a movie or a series"
-      />
+      <SearchBar />
       <nav className=" flex items-center gap-10">
         <NavLink
           to="/movies/trending"

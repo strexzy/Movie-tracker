@@ -1,5 +1,5 @@
 import MovieContext from "../../context/MovieContext";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Title } from "../../components/ui/Title";
 import { Poster } from "../../components/ui/Poster";
 import SaveButton from "../../components/SaveButton";
@@ -23,7 +23,7 @@ const Movie = () => {
           </div>
           <div className="flex justify-between items-center">
             <div className="flex gap-5">
-              <Poster src={movie.poster} />
+              <Poster className="w-49 h-72.75" src={movie.poster} />
               <div className="max-w-100 flex flex-wrap flex-col gap-5">
                 <GenreList genres={movie.genres} />
                 <Article>{movie.overview}</Article>

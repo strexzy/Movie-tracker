@@ -29,7 +29,7 @@ export const MovieProvider = ({ children }) => {
       "http://localhost:4000/api/movies/search?query=" + queryParameter;
     try {
       const response = await axios.get(url);
-      setSearch(response.data);
+      setSearch(response.data.results);
     } catch (error) {
       const errorResponse = await error.response.data;
       setErrorMovieMessage(errorResponse.message);
