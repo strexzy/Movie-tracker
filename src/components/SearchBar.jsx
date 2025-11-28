@@ -12,7 +12,6 @@ const SearchBar = () => {
 
   const onSubmit = ({ searchField }) => {
     getSearch(searchField.trim());
-    console.log(search);
     setIsVisible(true);
   };
 

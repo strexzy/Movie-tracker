@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useEffect, useState, useContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext(null);
@@ -91,20 +91,3 @@ export const AuthProvider = ({ children }) => {
 };
 
 export default AuthContext;
-
-// Endpoints:
-// POST http://localhost:4000//api/register { username, email, password, confirmPassword }
-// POST http://localhost:4000/api/login { username, password }
-// GET /api/me (Authorization: Bearer <token>)
-
-// Ответ при успешной аутентификации (пример):
-// {
-// "user": {
-// "id": 1,
-// "username": "ivan",
-// "email": "ivan@example.com",
-// "display_name": "Ivan",
-// "created_at": "2025-11-14T12:00:00.000Z"
-// },
-// "token": "<jwt>"
-// }

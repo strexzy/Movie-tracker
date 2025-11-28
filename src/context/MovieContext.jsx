@@ -64,7 +64,6 @@ export const MovieProvider = ({ children }) => {
     } catch (error) {
       const errorResponse = await error.response.data;
       setErrorMovieMessage(errorResponse.message);
-      console.log(errorResponse);
     }
   };
 
@@ -87,15 +86,13 @@ export const MovieProvider = ({ children }) => {
   const deleteSavedMovie = async (movieId) => {
     const url = "http://localhost:4000/api/movies/" + movieId;
     try {
-      const response = await axios.delete(url, {
+      await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
-      console.log(response);
     } catch (error) {
-      console.log(error);
       const errorResponse = await error.response.data;
       setErrorMovieMessage(errorResponse.message);
     }
